@@ -6,32 +6,33 @@
 import os
 
 
-coldir = "C:\\Users\\jms29\\Downloads"
+original_dir = "C:\\Users\\jms29\\Downloads"
 
-videodir = os.path.join(coldir, 'video')
-imgdir = os.path.join(coldir, 'img')
-dirs = [videodir, imgdir]
+videodir = os.path.join(original_dir, 'video')
+imgdir = os.path.join(original_dir, 'img')
+target_dirs = [videodir, imgdir]
 
-video_extensions = ('.torrent', '.mp4', '.avi', '.rmvb', '.mkv')
-img_extensions = ('.jpeg', '.jpg', '.gif', '.png')
-extensions = [video_extensions, img_extensions]
+video_ends = ('.torrent', '.mp4', '.avi', '.rmvb', '.mkv')
+img_ends = ('.jpeg', '.jpg', '.gif', '.png')
+ends = [video_ends, img_ends]
 
-files = dict(zip(dirs, extensions))
+args = dict(zip(target_dirs, ends))
+
 
 def makedirs(dirs):
 	for n in dirs:
 		if not os.path.exists(n):
 			os.mkdir(n)
 
-def move_files(coldir, files):
-	for n in os.listdir(coldir):
-		for dir_,extension in files.items():
+def move_files(_dir, args):
+	for n in os.listdir(_dir):
+		for directory,ends in args.items():
 
-			if os.path.splitext(n)[1] in extension:
-				os.rename(os.path.join(coldir, n), os.path.join(dir_, n))
+			if n.endswith(ends):
+				os.rename(os.path.join(_dir, n), os.path.join(directory, n))
 
 
 if __name__ == '__main__':
 	
-	makedirs(dirs)
-	move_files(coldir, files)
+	makedirs(target_dirs)
+	move_files(original_dir, args)

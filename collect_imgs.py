@@ -16,7 +16,7 @@ if not os.path.exists(imgdir):
 
 
 for n in os.listdir(coldir):
-	if os.path.splitext(n)[1] in img_extension:
+	if n.endswith(img_extension):
 		os.rename(os.path.join(coldir, n), os.path.join(imgdir, n))
 
 
