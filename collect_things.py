@@ -10,11 +10,13 @@ original_dir = "C:\\Users\\jms29\\Downloads"
 
 videodir = os.path.join(original_dir, 'video')
 imgdir = os.path.join(original_dir, 'img')
-target_dirs = [videodir, imgdir]
+tordir = os.path.join(original_dir, 'torrent')
+target_dirs = [videodir, imgdir, tordir]
 
-video_ends = ('.torrent', '.mp4', '.avi', '.rmvb', '.mkv')
+video_ends = ('.mp4', '.avi', '.rmvb', '.mkv', '.wmv')
 img_ends = ('.jpeg', '.jpg', '.gif', '.png')
-ends = [video_ends, img_ends]
+torrent_ends = ('.torrent')
+ends = [video_ends, img_ends, torrent_ends]
 
 args = dict(zip(target_dirs, ends))
 
@@ -24,12 +26,14 @@ def makedirs(dirs):
 		if not os.path.exists(n):
 			os.mkdir(n)
 
-def move_files(_dir, args):
+def move_files(_dir, tings2move):
 	for n in os.listdir(_dir):
-		for directory,ends in args.items():
+		for dir2move,ends in tings2move.items():
 
 			if n.endswith(ends):
-				os.rename(os.path.join(_dir, n), os.path.join(directory, n))
+				ori_dir = os.path.join(_dir, n)
+				tar_dir = os.path.join(dir2move, n)
+				os.rename(ori_dir, tar_dir)
 
 
 if __name__ == '__main__':
