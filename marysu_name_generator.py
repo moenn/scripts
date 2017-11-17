@@ -1,4 +1,8 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import random
+
 
 boyname = [
 	'漓','殇','梦','阑','雪','凪','爱','羽','魑','蔷','海','雨','悠','紫',
@@ -34,7 +38,8 @@ def generate_pieces(sequence,num):
 
 def create_name(sequence,length,firstname,lastname):
 	name_list = []
-	name_list.append(firstname)
+	if firstname != '':
+		name_list.append(firstname)
 
 	count_len = 0
 	while count_len < length:
@@ -43,12 +48,16 @@ def create_name(sequence,length,firstname,lastname):
 		name_list.append(pieces)
 
 		count_len += i
-	name_list.append(lastname)
+	if lastname != '':
+		name_list.append(lastname)
 	name = '·'.join(name_list)
 
 	return name
 
 
 if __name__ == '__main__':
-	name = create_name(boyname,10,'温','全龙')
+	print('是否将你的姓与名显示在生成的名字中？要显示则在下面的选项中键入相应字段并回车，否则直接回车。')
+	firstname = input('名：')
+	lastname = input('姓:')
+	name = create_name(boyname,10,firstname,lastname)
 	print(name)
