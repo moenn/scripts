@@ -1,14 +1,21 @@
+'''
+11/22/2017
+89c51单片机定时器工作在16位模式下定时初值的计算
+'''
+
 osc = [float(n) for n in input("晶振频率(单位 Mhz):  ").split()]
 
 time_range = []
 for o in osc:
 	time_range.append(pow(2,16)*(12/o)/1000)
-print("注意，对应的定时上限为(单位：ms): {}".format(time_range))
+print("注意，对应的定时上限为(单位：ms): {}\n".format(time_range))
 
 time = [int(n) for n in input("定时时间(单位 ms):  ").split()] 
-print("晶振频率列表为(单位：Mhz)：{}".format(osc))
-print("定时时间列表为(单位：ms):{}".format(time))
+print("---------------------------------------------------")
 
+print("\n晶振频率列表为(单位：Mhz)：{}".format(osc))
+print("定时时间列表为(单位：ms):{}\n".format(time))
+print("计算结果如下：\n")
 set_number = []
 for o,t in zip(osc,time):
 	set_number.append(pow(2,16) - (o/12)*t*1000)
