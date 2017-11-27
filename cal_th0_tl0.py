@@ -10,7 +10,7 @@ for o in osc:
 	time_range.append(pow(2,16)*(12/o)/1000)
 print("注意，对应的定时上限为(单位：ms): {}\n".format(time_range))
 
-time = [int(n) for n in input("定时时间(单位 ms):  ").split()] 
+time = [float(n) for n in input("定时时间(单位 ms):  ").split()] 
 print("---------------------------------------------------")
 
 print("\n晶振频率列表为(单位：Mhz)：{}".format(osc))
