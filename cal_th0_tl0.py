@@ -3,7 +3,34 @@
 89c51单片机定时器工作在16位模式下定时初值的计算
 '''
 
-osc = [float(n) for n in input("晶振频率(单位 Mhz):  ").split()]
+import os
+
+# if first time, create a blank file 
+if not os.path.exists('.\\cal_th0_tl0.txt'):
+	with open('.\\cal_th0_tl0.txt','w') as f:
+		f.write('')
+
+osc_history = []
+
+with open('.\\cal_th0_tl0.txt','r') as f:
+	raw_list = f.readlines()
+	if not raw_list:
+		osc_history.append(12.0000)
+	else:
+		for n in raw_list:
+			osc_history.append(float(n))
+
+
+
+raw_string = input("晶振频率(单位 Mhz):  ")
+if not raw_string:
+	osc = list(osc_history)
+	print('你未输入任何数值，将使用上次的晶振数据 {}！\n'.format(osc))
+else:
+	osc = [float(n) for n in raw_string.split()]
+	with open('.\\cal_th0_tl0.txt','w') as f:
+		osc_history = [str(n) for n in raw_string.split()]
+		f.write(''.join(osc_history))
 
 time_range = []
 for o in osc:
