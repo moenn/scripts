@@ -65,17 +65,17 @@ def create_name(sequence,length,firstname,lastname):
 
 if __name__ == '__main__':
 	try:
-		gender = input('生成男生名字还是女生名字？(键入"F"为女生，键入"M"为男生): ')
+		gender = input('生成男生名字还是女生名字？(键入"F"为女生，键入"M"为男生): ').lower()
 		length = int(input('请键入生成长度(5-50):  '))
 		assert 5 <= length <= 50
 		print('是否将你的姓与名显示在生成的名字中？要显示则在下面的选项中键入相应字段并回车，否则直接回车。')
 		firstname = input('名： ')
 		lastname = input('姓: ')
-		if(gender == 'F' or gender == 'f'):
+		if(gender == 'f'):
 			name = create_name(girlname,length,firstname,lastname)
-		elif(gender == 'M' or gender == 'm'):
+		elif(gender == 'm'):
 			name = create_name(boyname,length,firstname,lastname)
-
+		
 		print(name)
 	except:
 		print('输入有误，退出程序')
