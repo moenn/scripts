@@ -7,8 +7,8 @@
 '''
 import random
 
+malepieces = [
 
-boyname = [
 	'漓','殇','梦','阑','雪','凪','爱','羽','魑','蔷','海','雨','悠','紫',
 	'岚','晗','柊','雅','夏','绪','栩','珣','菀',
 	'琬','梧','霆','诗','丝','洛','温','安','洁','灵','血','魅','塔',
@@ -24,7 +24,7 @@ boyname = [
 	'奥','格','萨','尼','子','克','乃','湿',
 ]
 
-girlname = [
+femalepieces = [
 	'蝶','樱','莹','萤','滢','莺','璎','韵','舞','莎','姗','黛','丽','娜','瑷',
 	'妮','娥','惠','茹','香','艳','花','茉','蕊','娥','妲','馨','倩','恋','妙',
 	'薰','茵','钰','蒂','璃','莉','瑟','薇','玫','瑰','筱','莲','沫','芊','怡',
@@ -33,7 +33,7 @@ girlname = [
 
 ]
 
-
+#  使用 sequence 中的 num 个元素，组成一个 string。
 def generate_pieces(sequence,num):
 	pieces_list = []
 	while num > 0:
@@ -43,40 +43,53 @@ def generate_pieces(sequence,num):
 	return pieces
 
 
-
+# 从 sequence 中抽取元素组成一个不长于 length 的 string。
 def create_name(sequence,length,firstname,lastname):
-	name_list = []
+	name_pieces = []
 	if firstname != '':
-		name_list.append(firstname)
+		name_pieces.append(firstname)
 
 	count_len = 0
 	while count_len < length:
 		i = random.randint(1,5)
-		pieces = generate_pieces(sequence,i)
-		name_list.append(pieces)
-
+		name_pieces.append(generate_pieces(sequence,i))
 		count_len += i
+	
 	if lastname != '':
-		name_list.append(lastname)
-	name = '·'.join(name_list)
+		name_pieces.append(lastname)
+	name = '·'.join(name_pieces)
 
 	return name
 
 
 if __name__ == '__main__':
-	try:
-		gender = input('生成男生名字还是女生名字？(键入"F"为女生，键入"M"为男生): ').lower()
-		length = int(input('请键入生成长度(5-50):  '))
-		assert 5 <= length <= 50
-		print('是否将你的姓与名显示在生成的名字中？要显示则在下面的选项中键入相应字段并回车，否则直接回车。')
-		firstname = input('名： ')
-		lastname = input('姓: ')
-		if(gender == 'f'):
-			name = create_name(girlname,length,firstname,lastname)
-		elif(gender == 'm'):
-			name = create_name(boyname,length,firstname,lastname)
-		
-		print(name)
-	except:
-		print('输入有误，退出程序')
-		exit()
+	gender = input('生成男生名字还是女生名字？(键入"F"为女生，键入"M"为男生): ').lower()
+	assert (gender == 'f' or gender == 'm')
+
+	print('是否将你的姓与名添加到将生成的名字中？要添加则键入相应字段，否则直接回车。')
+	firstname = input('名:	')
+	lastname = input('姓:	')
+	if(firstname == ''):
+		print('不添加自己的名。')
+	if(lastname == ''):
+		print('不添加自己的姓。')
+	raw = input('请键入生成长度(5-50)，随机长度请直接回车:  ')
+	if raw == '':
+		length = random.choice(range(5,51))
+		print('已随机长度。')
+	else:
+		try:
+			length = int(raw)	
+			assert 5 <= length <= 50
+		except:
+			print('输入有误，请输入5~50的数字。')
+			exit()
+	
+	if(gender == 'f'):
+		name = create_name(femalepieces,length,firstname,lastname)
+	elif(gender == 'm'):
+		name = create_name(malepieces,length,firstname,lastname)
+	
+	print('名字为：{}'.format(name))
+
+	
